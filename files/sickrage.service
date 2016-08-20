@@ -1,0 +1,14 @@
+[Unit]
+Description=SickRage application instance
+After=network.target
+
+[Service]
+Type=forking
+GuessMainPID=no
+ExecStart=/usr/bin/python /opt/SickRage/SickBeard.py -q --daemon --nolaunch --datadir=/opt/SickRage -p 5858
+
+User=sickrage
+Group=sickrage
+
+[Install]
+WantedBy=multi-user.target

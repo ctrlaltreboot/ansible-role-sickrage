@@ -1,0 +1,44 @@
+---
+# tasks file for xyzrbt.sickrage
+- name: Install git
+  package: name=git state=present
+
+- name: Clone sickrage
+  git:
+    repo: https://github.com/SickRage/SickRage.git
+    dest: /opt/SickRage
+    accept_hostkey: yes
+
+- name: Copy systemd unit
+  synchronize:
+    src: files/sickrage.service
+    dest: /etc/systemd/system/sickrage.service
+  delegate_to: "{{ inventory_hostname }}"
+  tags: ['systemd']
+
+- name: Firewalld config
+  firewalld:
+    port: 8080
+    permanent: true
+    immediate: true
+    state: enabled
+  ignore_errors: yes
+
+- name: Create sickrage user
+  user: name=sickrage state=present
+
+- name: Pwn SickRage
+  file:
+    path: /opt/SickRage
+    owner: sickrage
+    group: sickrage
+    mode: 0755
+    recurse: yes
+    state: directory
+
+- name: Reload systemd
+  command: /usr/bin/systemctl daemon-reload
+
+- name: Start and enable sickrage
+  service: name=sickrage enabled=yes state=started
+

@@ -1,0 +1,6 @@
+---
+# defaults file for xyzrbt.sickrage
+sickrage_user: sickrage
+sickrage_install_dir: /opt/SickRage
+sickrage_pid: /opt/SickRage/sickrage.pid
+sickrage_port: 5858
