@@ -1,7 +1,7 @@
 ---
 # tasks file for xyzrbt.sickrage
-- name: Install git
-  package: name=git state=present
+- name: Create sickrage user
+  user: name=sickrage state=present
 
 - name: Clone sickrage
   git:
@@ -10,10 +10,10 @@
     accept_hostkey: yes
 
 - name: Copy systemd unit
-  synchronize:
+  copy:
     src: sickrage.service
     dest: /etc/systemd/system/sickrage.service
-  delegate_to: "{{ inventory_hostname }}"
+    mode: 0755
   tags: ['systemd']
 
 - name: Firewalld config
@@ -23,9 +23,6 @@
     immediate: true
     state: enabled
   ignore_errors: yes
-
-- name: Create sickrage user
-  user: name=sickrage state=present
 
 - name: Pwn SickRage
   file:
