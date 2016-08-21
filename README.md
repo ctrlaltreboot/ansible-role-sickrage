@@ -33,4 +33,4 @@ GPLv2
 
 Author Information
 ------------------
-Casts a fat shadow.
+Casts a fatshadow.
