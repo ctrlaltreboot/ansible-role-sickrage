@@ -11,7 +11,7 @@
 
 - name: Copy systemd unit
   synchronize:
-    src: files/sickrage.service
+    src: sickrage.service
     dest: /etc/systemd/system/sickrage.service
   delegate_to: "{{ inventory_hostname }}"
   tags: ['systemd']
