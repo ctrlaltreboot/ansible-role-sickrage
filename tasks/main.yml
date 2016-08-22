@@ -18,11 +18,12 @@
 
 - name: Firewalld config
   firewalld:
-    port: 8080
+    port: 5858/tcp
     permanent: true
     immediate: true
     state: enabled
   ignore_errors: yes
+  tags: ['firewall']
 
 - name: Pwn SickRage
   file:
